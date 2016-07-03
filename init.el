@@ -267,12 +267,16 @@ See also `newline-and-indent'."
 
 ;; emacs as python IDE video
 
-(require 'projectile)
-(projectile-global-mode)
+(use-package projectile
+  :defer t
+  :config
+  (projectile-global-mode))
 
 ;; flycheck
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :defer t
+  :config
+ (add-hook 'after-init-hook #'global-flycheck-mode))
 
 ;; (require 'auto-complete-config)
 ;; (ac-config-default)
@@ -295,8 +299,10 @@ See also `newline-and-indent'."
 ;; (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
 
 ;; git-gutter
-(require 'git-gutter)
-(global-git-gutter-mode t)
+(use-package git-gutter
+  :defer t
+  :config
+  (global-git-gutter-mode t))
 ;; (git-gutter:linum-setup)
 ;; (custom-set-variables
 ;;  '(git-gutter:update-interval 2))
