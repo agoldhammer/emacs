@@ -216,9 +216,10 @@
       (beginning-of-line 2))
 
 ;; Behave like vi's o command
+(defvar newline-and-indent)
 (defun open-next-line (arg)
-  "Move to the next line and then opens a line.
-  See also `newline-and-indent'."
+  "Move to the next line and then opens a line (ARG repeats).
+See also `newline-and-indent'."
   (interactive "p")
   (end-of-line)
   (open-line arg)
@@ -228,8 +229,8 @@
 (global-set-key (kbd "C-o") 'open-next-line)
 ;; Behave like vi's O command
 (defun open-previous-line (arg)
-  "Open a new line before the current one. 
- See also `newline-and-indent'."
+  "Open a new line before the current one (ARG repeats). 
+See also `newline-and-indent'."
   (interactive "p")
   (beginning-of-line)
   (open-line arg)
