@@ -16,8 +16,8 @@
 
   (package-initialize))
 
-(setq use-package-verbose t)
-(setq use-package-always-ensure)
+(defvar use-package-verbose t)
+(defvar use-package-always-ensure)
 (require 'use-package)
 
 ;; elpy
@@ -359,7 +359,7 @@
   (kill-line)
   (yank)
   (open-line 1)
-  (next-line 1)
+  (forward-line 1)
   (yank)
 )
 
@@ -374,7 +374,7 @@
 
 ;; for os x specific stuff
 (if (eq system-type 'darwin)
-    (setq mac-command-modifier 'control))
+    (defvar mac-command-modifier 'control))
 
 ;; resolve company - yasnippet conflicts
 ;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
