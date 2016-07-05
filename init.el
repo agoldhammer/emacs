@@ -16,8 +16,8 @@
 
   (package-initialize))
 
-(defvar use-package-verbose t)
-(defvar use-package-always-ensure)
+(setq use-package-verbose t)
+(setq use-package-always-ensure)
 (require 'use-package)
 
 ;; elpy
@@ -45,6 +45,12 @@
   :defer t
   :bind ("C-=" . er/expand-region))
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
+
+;; zencoding
+(use-package zencoding
+  :defer t
+  :config
+  (add-hook 'sgml-mode-hook 'zencoding-mode))
 
 
 ;; multiple cursors
@@ -381,7 +387,7 @@ See also `newline-and-indent'."
 
 ;; for os x specific stuff
 (if (eq system-type 'darwin)
-    (defvar mac-command-modifier 'control))
+    (setq mac-command-modifier 'super))
 
 ;; resolve company - yasnippet conflicts
 ;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
