@@ -17,7 +17,7 @@
   (package-initialize))
 
 (setq use-package-verbose t)
-(setq use-package-always-ensure)
+(setq use-package-always-ensure t)
 (require 'use-package)
 
 ;; elpy
