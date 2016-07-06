@@ -123,6 +123,8 @@
     (smartparens-strict-mode 1)
     (sp-use-smartparens-bindings))))
 
+(require 'smartparens-config)
+
 (add-hook 'clojure-mode-hook 'sp-setup)
 (add-hook 'emacs-lisp-mode-hook 'sp-setup)
 ;;(smartparens-global-mode t)
@@ -412,6 +414,11 @@ See also `newline-and-indent'."
 (fset 'next-note
       [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e])
 (global-set-key (kbd "s-.") 'next-note)
+
+;; my own utility functions
+(load-file "~/.emacs.d/utility.el")
+(global-set-key (kbd "s-r") 'rotate-windows)
+(global-set-key (kbd "s-c") 'cleanup-buffer)
 
 
 (provide 'init)
