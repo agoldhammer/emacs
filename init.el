@@ -47,7 +47,7 @@
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; zencoding
-(use-package zencoding
+(use-package zencoding-mode
   :defer t
   :config
   (add-hook 'sgml-mode-hook 'zencoding-mode))
@@ -95,6 +95,9 @@
  '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(flymake-log-level 2)
  '(flymake-start-syntax-check-on-find-file nil)
+ '(package-selected-packages
+   (quote
+    (smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode jedi idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t))
 
@@ -113,8 +116,8 @@
 ;; (setq jedi:complete-on-dot t)
 
 ;; smartparens
-(use-package smartparens-config
-  :init
+(use-package smartparens
+  :config
   (defun sp-setup ()
   (progn
     (smartparens-strict-mode 1)
@@ -404,6 +407,11 @@ See also `newline-and-indent'."
              'company-complete-common
              'company-yasnippet-or-completion
              company-active-map)))
+
+;; for note taking in org mode
+(fset 'next-note
+      [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e])
+(global-set-key (kbd "s-.") 'next-note)
 
 
 (provide 'init)
