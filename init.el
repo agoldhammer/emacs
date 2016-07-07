@@ -302,7 +302,7 @@ See also `newline-and-indent'."
 ;; (add-to-list 'company-backends 'company-jedi)
 ;; enable for python mode
 ;; (add-hook 'python-mode-hook 'jedi:setup)
-(use-package jedi
+(use-package company-jedi
   :defer t
   :config
   (add-to-list 'company-backends 'company-jedi))
