@@ -29,6 +29,7 @@
 
 (when (require 'elpy nil t)
   (elpy-enable))
+(add-hook 'python-mode-hook 'jedi:setup)
 ;; (elpy-use-ipython)
 
 ;; column numbers
