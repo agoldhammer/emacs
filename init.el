@@ -21,14 +21,14 @@
 (require 'use-package)
 
 ;; elpy
-(use-package elpy
-  :defer t
-  :config
-  (elpy-enable)
-  (add-hook 'python-mode-hook 'jedi:setup))
+;; (use-package elpy
+;;   :defer t
+;;   :config
+;;   (elpy-enable)
+;;   (add-hook 'python-mode-hook 'jedi:setup))
 
-;; (when (require 'elpy nil t)
-;;   (elpy-enable))
+(when (require 'elpy nil t)
+  (elpy-enable))
 ;; (elpy-use-ipython)
 
 ;; column numbers
