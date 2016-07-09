@@ -53,6 +53,10 @@
   :config
   (add-hook 'sgml-mode-hook 'zencoding-mode))
 
+;; ace-window
+(use-package ace-window)
+(global-set-key (kbd "M-p") 'ace-window)
+
 
 ;; multiple cursors
 (use-package multiple-cursors
@@ -98,7 +102,7 @@
  '(flymake-start-syntax-check-on-find-file nil)
  '(package-selected-packages
    (quote
-    (smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode jedi idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode jedi idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t))
 
