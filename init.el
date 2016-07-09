@@ -30,6 +30,9 @@
 (when (require 'elpy nil t)
   (elpy-enable))
 (add-hook 'python-mode-hook 'jedi:setup)
+;; added per http://www.unknownerror.org/opensource/davidhalter/
+;; jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
+(setq elpy-rpc-backend "jedi")  
 ;; (elpy-use-ipython)
 
 ;; column numbers
