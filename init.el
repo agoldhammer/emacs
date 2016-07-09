@@ -403,7 +403,9 @@ See also `newline-and-indent'."
 
 ;; for os x specific stuff
 (if (eq system-type 'darwin)
-    (setq mac-command-modifier 'super))
+    (progn
+      (setq mac-command-modifier 'super)
+      (setq ns-function-modifier 'hyper)))
 
 ;; resolve company - yasnippet conflicts
 ;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
