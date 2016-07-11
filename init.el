@@ -28,7 +28,7 @@
 ;;   (add-hook 'python-mode-hook 'jedi:setup))
 
 ;; prevent autocomplete from starting automatically
-(setq ac-auto-start nil)
+(global-auto-complete-mode 0)
 
 (when (require 'elpy nil t)
   (elpy-enable))
