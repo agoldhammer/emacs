@@ -53,11 +53,11 @@
   :bind ("C-=" . er/expand-region))
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; zencoding
-(use-package zencoding-mode
-  :defer t
-  :config
-  (add-hook 'sgml-mode-hook 'zencoding-mode))
+;; zencoding replaced by emmet
+;; (use-package zencoding-mode
+;;   :defer t
+;;   :config
+;;   (add-hook 'sgml-mode-hook 'zencoding-mode))
 
 ;; ace-window
 (use-package ace-window)

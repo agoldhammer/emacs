@@ -1,0 +1,16 @@
+elpa/*
+snippets/*
+url/*
+auto-save-list/*
+backups/*
+init.elc
+places
+projectile-bookmarks.eld
+smex-items
+ac-comphist.dat
+.py*
+bookmarks
+.git/
+.mc*
+.emacs.de*
+
