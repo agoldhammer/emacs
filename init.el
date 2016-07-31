@@ -428,8 +428,9 @@ See also `newline-and-indent'."
 
 ;; for note taking in org mode
 (fset 'next-note
-      [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e])
+      [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e ?\C-p])
 (global-set-key (kbd "s-.") 'next-note)
+
 
 ;; my own utility functions
 (load-file "~/.emacs.d/utility.el")
