@@ -41,6 +41,10 @@
 ;; column numbers
 (setq column-number-mode t)
 
+;; web-mode
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(use-package web-mode)
+
 ;; rainbow
 (use-package rainbow-delimiters
   :init
@@ -183,6 +187,14 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1))
+
+;; jslint (installed with npm -g install jslint)
+(use-package flymake-jslint)
+(add-hook 'js-mode-hook 'flymake-jslint-load)
+
+;; js completion
+(use-package jquery-doc)
+(add-hook 'js2-mode-hook 'jquery-doc-setup)
 
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
 (use-package clojure-snippets)
