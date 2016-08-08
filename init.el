@@ -80,10 +80,6 @@
     ("C-c m p" . mc/mark-previous-like-this)
     ("C-c m s" . mc/mark-sgml-tag-pair)
     ("C-c m d" . mc/mark-all-like-this-in-defun)))
-;; (global-set-key (kbd "C-<f5>") 'mc/edit-lines)
-;; (global-set-key (kbd "C-S-<f5>") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<f6>") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-S-<f6>") 'mc/mark-all-like-this)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -125,13 +121,6 @@
   (setq fci-rule-color "lightblue")
   (setq fci-rule-column 80)
 )
-;; (define-globalized-minor-mode global-fci-mode
-;;   fci-mode (lambda () (fci-mode 1)))
-;; (global-fci-mode 1)
-
-;; jedi setup
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
 
 ;; smartparens
 (use-package smartparens
@@ -145,7 +134,6 @@
 
 (add-hook 'clojure-mode-hook 'sp-setup)
 (add-hook 'emacs-lisp-mode-hook 'sp-setup)
-;;(smartparens-global-mode t)
 ;;
 ;; typing replaces selection
 (delete-selection-mode 1)
@@ -157,6 +145,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;;
 (eyebrowse-mode t)
 ;;
 ;; ido mode
@@ -182,6 +171,7 @@
 ;;
 ;; code completion
 (add-hook 'after-init-hook 'global-company-mode)
+;;
 ;; yasnippets
 ;; 
 (use-package yasnippet
@@ -204,15 +194,12 @@
 (add-hook 'prog-mode-hook 'column-enforce-mode)
 
 ;;
-
-;;
 ;; key mappings
 (global-set-key (kbd "C-c n") 'linum-mode)
 ;; (global-set-key (kbd "<f5>") 'cider-eval-last-sexp)
 (global-set-key (kbd "<f7>") 'kill-buffer)
 (global-set-key (kbd "<f8>") 'cider-jack-in)
 (global-set-key (kbd "<f9>") 'completion-at-point)
-(global-set-key (kbd "<f10>") 'save-buffer)
 (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
 (global-set-key (kbd "C-?") 'avy-goto-char)
@@ -315,16 +302,7 @@ See also `newline-and-indent'."
   :config
  (add-hook 'after-init-hook #'global-flycheck-mode))
 
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (setq ac-show-menu-immediately-on-auto-complete t)
-
-;; (require 'jedi)
-;; hook up to autocomplete
-;; (add-to-list 'ac-sources 'ac-source-jedi-direct)
-;; (add-to-list 'company-backends 'company-jedi)
-;; enable for python mode
-;; (add-hook 'python-mode-hook 'jedi:setup)
+;;
 (use-package company-jedi
   :defer t
   :config
@@ -346,9 +324,6 @@ See also `newline-and-indent'."
 
 
 ;; more setup needed, see andrew werner on github.com/wernerdrew/jedi-starter
-
-;; for os x specific stuff
-;; (if (eq system-type 'darwin)
 
 ;;aliases from ergoemacs
 (defalias 'list-buffers 'ibuffer) ; always use ibuffer
