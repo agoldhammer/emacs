@@ -16,6 +16,8 @@
 
   (package-initialize))
 
+(setq inhibit-startup-screen t)
+
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 (require 'use-package)
