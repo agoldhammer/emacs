@@ -109,6 +109,9 @@
  '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(flymake-log-level 2)
  '(flymake-start-syntax-check-on-find-file nil)
+ '(haskell-mode-hook
+   (quote
+    (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
     (jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
