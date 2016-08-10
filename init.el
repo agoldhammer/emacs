@@ -17,6 +17,7 @@
   (package-initialize))
 
 (setq inhibit-startup-screen t)
+(tool-bar-mode -1)
 
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
