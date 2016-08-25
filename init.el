@@ -133,7 +133,7 @@
   :config
   (defun sp-setup ()
     (progn
-      (electric-pair-mode nil)
+      (electric-pair-mode 0)
       (smartparens-strict-mode 1)
       (sp-use-smartparens-bindings))))
 
