@@ -132,9 +132,10 @@
 (use-package smartparens
   :config
   (defun sp-setup ()
-  (progn
-    (smartparens-strict-mode 1)
-    (sp-use-smartparens-bindings))))
+    (progn
+      (electric-pair-mode nil)
+      (smartparens-strict-mode 1)
+      (sp-use-smartparens-bindings))))
 
 (require 'smartparens-config)
 
