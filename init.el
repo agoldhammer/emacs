@@ -33,6 +33,8 @@
   (setq elpy-rpc-backend "jedi") ;; also ?? set in custom variables
   )
 (add-hook 'python-mode-hook 'jedi:setup)
+;; turn off pyvenv
+(pyvenv-mode -1)
 ;; (when (require 'elpy nil t)
 ;;   (elpy-enable))
 ;; (add-hook 'python-mode-hook 'jedi:setup)
@@ -62,6 +64,14 @@
 
 ;; column numbers
 (setq column-number-mode t)
+
+;; code folding
+(defun fold ()
+  (interactive)
+  (if (not selective-display)
+    (set-selective-display 2)
+    (set-selective-display nil)))
+(global-set-key (kbd "C-c f") 'fold)
 
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
