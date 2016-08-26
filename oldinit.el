@@ -12,53 +12,34 @@
    '("melpa" . "http://melpa.org/packages/")
    t)
   (add-to-list 'package-archives
-	       '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
   (package-initialize))
-
-(setq use-package-verbose t)
-(setq use-package-always-ensure t)
-
-(eval-when-compile (require 'use-package))
-(require 'bind-key)
-;; (require 'diminish)
 
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
 
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+(require 'use-package)
+
 ;; elpy
-(use-package elpy
-  :init
-  (elpy-enable)
-  :config
-  (setq elpy-rpc-backend "jedi") ;; also ?? set in custom variables
-  )
-(add-hook 'python-mode-hook 'jedi:setup)
-;; (when (require 'elpy nil t)
-;;   (elpy-enable))
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;;added per http://www.unknownerror.org/opensource/davidhalter/
-;;jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
-(setq elpy-rpc-backend "jedi")  
-;; (elpy-use-ipython)
-
-;; resolve company - yasnippet conflicts
-;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
-(defun company-yasnippet-or-completion ()
-  "Solve company yasnippet conflicts."
-  (interactive)
-  (let ((yas-fallback-behavior
-         (apply 'company-complete-common nil)))
-    (yas-expand)))
-
-(add-hook 'company-mode-hook
-          (lambda ()
-            (substitute-key-definition
-             'company-complete-common
-             'company-yasnippet-or-completion
-             company-active-map)))
+;; (use-package elpy
+;;   :defer t
+;;   :config
+;;   (elpy-enable)
+;;   (add-hook 'python-mode-hook 'jedi:setup))
 
 ;; prevent autocomplete from starting automatically
-;; (global-auto-complete-mode 0)
+(global-auto-complete-mode 0)
+
+(when (require 'elpy nil t)
+  (elpy-enable))
+(add-hook 'python-mode-hook 'jedi:setup)
+;; added per http://www.unknownerror.org/opensource/davidhalter/
+;; jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
+(setq elpy-rpc-backend "jedi")  
+;; (elpy-use-ipython)
 
 ;; column numbers
 (setq column-number-mode t)
@@ -72,14 +53,23 @@
   :init
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 
+
 ;; expand region
 (use-package expand-region
   :defer t
   :bind ("C-=" . er/expand-region))
+;; (global-set-key (kbd "C-=") 'er/expand-region)
+
+;; zencoding replaced by emmet
+;; (use-package zencoding-mode
+;;   :defer t
+;;   :config
+;;   (add-hook 'sgml-mode-hook 'zencoding-mode))
 
 ;; ace-window
-(use-package ace-window
-  :bind ("M-p" . ace-window))
+(use-package ace-window)
+(global-set-key (kbd "M-p") 'ace-window)
+
 
 ;; multiple cursors
 (use-package multiple-cursors
@@ -93,120 +83,6 @@
     ("C-c m p" . mc/mark-previous-like-this)
     ("C-c m s" . mc/mark-sgml-tag-pair)
     ("C-c m d" . mc/mark-all-like-this-in-defun)))
-
-;; smex
-(use-package smex
-  :bind
-  ("M-x" . smex)
-  ("M-X" . smex-major-mode-commands)
-  ("C-c C-c M-x" . execute-extended-command))
-;; smex keys
-;;(global-set-key (kbd "M-x") 'smex)
-;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; fill-column-indicator
-(use-package fill-column-indicator
-  :config
-  (setq fci-rule-color "lightblue")
-  (setq fci-rule-column 80)
-)
-
-;; smartparens
-(use-package smartparens
-  :defer 5
-  :config
-  (defun sp-setup ()
-    (progn
-      (electric-pair-mode 0)
-      (smartparens-strict-mode 1)
-      (sp-use-smartparens-bindings))))
-
-;;(use-package smartparens-config :defer t)
-
-(add-hook 'clojure-mode-hook 'sp-setup)
-(add-hook 'emacs-lisp-mode-hook 'sp-setup)
-;;
-;; typing replaces selection
-(delete-selection-mode 1)
-;;
-;; ido mode
-(use-package ido
-  :config
-  (progn
-    (setq ido-enable-f-matching t)
-    (setq ido-everywhere t)
-    (ido-mode 1)
-    (ido-yes-or-no-mode)
-    (setq ido-use-faces nil))
-  :bind
-  ("C-x o" . ido-select-window))
-
-(use-package flx-ido)
-     
-;; code completion
-(add-hook 'after-init-hook 'global-company-mode)
-;;
-;; yasnippets
-;; 
-(use-package yasnippet
-  :config
-  (yas-global-mode 1))
-
-;; jslint (installed with npm -g install jslint)
-(use-package flymake-jslint)
-(add-hook 'js-mode-hook 'flymake-jslint-load)
-
-;; js completion
-(use-package jquery-doc)
-(add-hook 'js2-mode-hook 'jquery-doc-setup)
-
-;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
-(use-package clojure-snippets)
-;; (yas-load-directory "~/.emacs.d/snippets")
-
-;; avy
-(use-package avy
-  :defer t
-  :config
-  (avy-setup-default))
-
-;; emacs as python IDE video
-
-(use-package projectile
-  :defer t
-  :config
-  (projectile-global-mode))
-
-;; flycheck
-(use-package flycheck
-  :defer t
-  :config
- (add-hook 'after-init-hook #'global-flycheck-mode))
-
-;;
-(use-package company-jedi
-  :defer t
-  :config
-  (add-to-list 'company-backends 'company-jedi))
-
-;; highlight indent 
-(highlight-indentation-mode nil)
-;; (set-face-background 'highlight-indentation-face "#d3d3d3")
-;; (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
-
-;; git-gutter
-(use-package git-gutter
-  :defer t
-  :config
-  (global-git-gutter-mode t))
-;; (git-gutter:linum-setup)
-;; (custom-set-variables
-;;  '(git-gutter:update-interval 2))
-;;
-;; warn long lines
-(add-hook 'prog-mode-hook 'column-enforce-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -242,6 +118,34 @@
  '(save-place t nil (saveplace))
  '(show-paren-mode t))
 
+;; smex
+(use-package smex)
+
+;; fill-column-indicator
+(use-package fill-column-indicator
+  :config
+  (setq fci-rule-color "lightblue")
+  (setq fci-rule-column 80)
+)
+
+;; smartparens
+(use-package smartparens
+  :config
+  (defun sp-setup ()
+    (progn
+      (electric-pair-mode 0)
+      (smartparens-strict-mode 1)
+      (sp-use-smartparens-bindings))))
+
+(require 'smartparens-config)
+
+(add-hook 'clojure-mode-hook 'sp-setup)
+(add-hook 'emacs-lisp-mode-hook 'sp-setup)
+;;
+;; typing replaces selection
+(delete-selection-mode 1)
+;;
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -249,15 +153,59 @@
  ;; If there is more than one, they won't work right.
  )
 ;;
-;; (eyebrowse-mode t)
+(eyebrowse-mode t)
 ;;
+;; ido mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+(ido-yes-or-no-mode)
+(global-set-key (kbd "C-x o") 'ido-select-window)
+;;(require 'ido-vertical-mode)
+;;(ido-vertical-mode 1)
+;;(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+;; flx-ido-mode
+(require 'flx-ido)
+   (ido-mode 1)
+   (ido-everywhere 1)
+   (flx-ido-mode 1)
+   ;; disable ido faces to see flx highlights.
+   (setq ido-enable-flex-matching t)
+   (setq ido-use-faces nil)
+
+;;
+;;
+;; code completion
+(add-hook 'after-init-hook 'global-company-mode)
+;;
+;; yasnippets
+;; 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+;; jslint (installed with npm -g install jslint)
+(use-package flymake-jslint)
+(add-hook 'js-mode-hook 'flymake-jslint-load)
+
+;; js completion
+(use-package jquery-doc)
+(add-hook 'js2-mode-hook 'jquery-doc-setup)
+
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+(use-package clojure-snippets)
+;; (yas-load-directory "~/.emacs.d/snippets")
+;;
+;; warn long lines
+(add-hook 'prog-mode-hook 'column-enforce-mode)
 
 ;;
 ;; key mappings
 (global-set-key (kbd "C-c n") 'linum-mode)
 ;; (global-set-key (kbd "<f5>") 'cider-eval-last-sexp)
-;;(global-set-key (kbd "<f7>") 'kill-buffer)
-;;(global-set-key (kbd "<f8>") 'cider-jack-in)
+(global-set-key (kbd "<f7>") 'kill-buffer)
+(global-set-key (kbd "<f8>") 'cider-jack-in)
 (global-set-key (kbd "<f9>") 'completion-at-point)
 (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
@@ -272,6 +220,15 @@
 
 ;; yas-expand alternative for modes where something else bound to tab
 (global-set-key (kbd "<f5>") 'yas-expand)
+
+;; smex keys
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; avy
+(avy-setup-default)
 
 ;; which-key--current-key-list
 (which-key-mode)
@@ -338,6 +295,40 @@ See also `newline-and-indent'."
 
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
+
+;; emacs as python IDE video
+
+(use-package projectile
+  :defer t
+  :config
+  (projectile-global-mode))
+
+;; flycheck
+(use-package flycheck
+  :defer t
+  :config
+ (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;;
+(use-package company-jedi
+  :defer t
+  :config
+  (add-to-list 'company-backends 'company-jedi))
+
+;; highlight indent 
+(highlight-indentation-mode nil)
+;; (set-face-background 'highlight-indentation-face "#d3d3d3")
+;; (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
+
+;; git-gutter
+(use-package git-gutter
+  :defer t
+  :config
+  (global-git-gutter-mode t))
+;; (git-gutter:linum-setup)
+;; (custom-set-variables
+;;  '(git-gutter:update-interval 2))
+
 
 ;; more setup needed, see andrew werner on github.com/wernerdrew/jedi-starter
 
@@ -413,15 +404,33 @@ See also `newline-and-indent'."
       (setq mac-command-modifier 'super)
       (setq ns-function-modifier 'hyper)))
 
+;; resolve company - yasnippet conflicts
+;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
+(defun company-yasnippet-or-completion ()
+  "Solve company yasnippet conflicts."
+  (interactive)
+  (let ((yas-fallback-behavior
+         (apply 'company-complete-common nil)))
+    (yas-expand)))
+
+(add-hook 'company-mode-hook
+          (lambda ()
+            (substitute-key-definition
+             'company-complete-common
+             'company-yasnippet-or-completion
+             company-active-map)))
+
 ;; for note taking in org mode
 (fset 'next-note
       [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e ?\C-p])
 (global-set-key (kbd "s-.") 'next-note)
 
+
 ;; my own utility functions
 (load-file "~/.emacs.d/utility.el")
 (global-set-key (kbd "s-r") 'rotate-windows)
 (global-set-key (kbd "s-c") 'cleanup-buffer)
+
 
 (provide 'init)
 ;;; init.el ends here
