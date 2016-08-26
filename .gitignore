@@ -3,7 +3,7 @@ snippets/*
 url/*
 auto-save-list/*
 backups/*
-init.elc
+*.elc
 places
 projectile-bookmarks.eld
 smex-items
@@ -13,4 +13,5 @@ bookmarks
 .git/
 .mc*
 .emacs.de*
+*.old
 
