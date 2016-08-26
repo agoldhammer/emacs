@@ -16,24 +16,26 @@
   (package-initialize))
 
 (setq use-package-verbose t)
-;; (setq use-package-always-ensure t)
-(require 'use-package)
+(setq use-package-always-ensure t)
+
+(eval-when-compile (require 'use-package))
+(require 'bind-key)
+;; (require 'diminish)
 
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
 
 ;; elpy
-;; (use-package elpy
-;;   :defer t
-;;   :config
-;;   (progn
-;;     (elpy-enable)
-;;     (setq elpy-rpc-backend "jedi") ;; also ?? set in custom variables
-;;     ))
-;; (add-hook 'python-mode-hook 'jedi:setup)
-(when (require 'elpy nil t)
-  (elpy-enable))
+(use-package elpy
+  :init
+  (elpy-enable)
+  :config
+  (setq elpy-rpc-backend "jedi") ;; also ?? set in custom variables
+  )
 (add-hook 'python-mode-hook 'jedi:setup)
+;; (when (require 'elpy nil t)
+;;   (elpy-enable))
+;; (add-hook 'python-mode-hook 'jedi:setup)
 ;;added per http://www.unknownerror.org/opensource/davidhalter/
 ;;jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
 (setq elpy-rpc-backend "jedi")  
@@ -337,8 +339,6 @@ See also `newline-and-indent'."
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
-
-
 ;; more setup needed, see andrew werner on github.com/wernerdrew/jedi-starter
 
 ;;aliases from ergoemacs
@@ -413,19 +413,15 @@ See also `newline-and-indent'."
       (setq mac-command-modifier 'super)
       (setq ns-function-modifier 'hyper)))
 
-
-
 ;; for note taking in org mode
 (fset 'next-note
       [?\C-a ?\C-  ?\M-f right ?\M-w ?\C-e return ?\C-y ?\C-e ?\C-p])
 (global-set-key (kbd "s-.") 'next-note)
 
-
 ;; my own utility functions
 (load-file "~/.emacs.d/utility.el")
 (global-set-key (kbd "s-r") 'rotate-windows)
 (global-set-key (kbd "s-c") 'cleanup-buffer)
-
 
 (provide 'init)
 ;;; init.el ends here
