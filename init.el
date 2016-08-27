@@ -75,7 +75,7 @@
 
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(use-package web-mode)
+(use-package web-mode :defer 8)
 
 ;; rainbow
 (use-package rainbow-delimiters
@@ -159,8 +159,10 @@
 (add-hook 'after-init-hook 'global-company-mode)
 ;;
 ;; yasnippets
-;; 
+;;
 (use-package yasnippet
+  :init
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
   :config
   (yas-global-mode 1))
 
@@ -169,10 +171,9 @@
 (add-hook 'js-mode-hook 'flymake-jslint-load)
 
 ;; js completion
-(use-package jquery-doc)
+(use-package jquery-doc :defer 6)
 (add-hook 'js2-mode-hook 'jquery-doc-setup)
 
-;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
 (use-package clojure-snippets)
 ;; (yas-load-directory "~/.emacs.d/snippets")
 

@@ -1,5 +1,5 @@
 elpa/*
-snippets/*
+ido*
 url/*
 auto-save-list/*
 backups/*
@@ -14,4 +14,5 @@ bookmarks
 .mc*
 .emacs.de*
 *.old
+*~
 

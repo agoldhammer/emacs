@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: documentation
+# key: spd
+# --
+"""
+$0 Description
+$1 :param $2:
+$3 :return:
+$4 :rtype:
+"""
