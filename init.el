@@ -62,6 +62,10 @@
 ;; prevent autocomplete from starting automatically
 ;; (global-auto-complete-mode 0)
 
+;; cider code completion
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+
 ;; column numbers
 (setq column-number-mode t)
 
