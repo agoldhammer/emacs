@@ -91,6 +91,13 @@
   :defer t
   :bind ("C-=" . er/expand-region))
 
+;; window resizing
+(use-package cycle-resize
+  :defer 5
+  :bind
+  ("C-M-v" . cycle-resize-window-vertically)
+  ("C-M-h" . cycle-resize-window-horizontally))
+
 ;; ace-window
 (use-package ace-window
   :bind ("M-p" . ace-window))
