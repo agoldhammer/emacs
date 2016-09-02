@@ -102,6 +102,10 @@
 (use-package ace-window
   :bind ("M-p" . ace-window))
 
+;; magit
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
 ;; multiple cursors
 (use-package multiple-cursors
   :bind
