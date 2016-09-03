@@ -62,6 +62,9 @@
 ;; prevent autocomplete from starting automatically
 ;; (global-auto-complete-mode 0)
 
+;; winner mode always
+(winner-mode 1)
+
 ;; cider code completion
 (add-hook 'cider-repl-mode-hook #'company-mode)
 (add-hook 'cider-mode-hook #'company-mode)
