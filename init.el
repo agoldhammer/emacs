@@ -65,8 +65,9 @@
 ;; winner mode always
 (winner-mode 1)
 
-;; occur mode
+;; occur and swiper modes
 (global-set-key (kbd "C-c o") 'occur)
+(global-set-key (kbd "C-c s") 'swiper)
 
 ;; cider code completion
 (add-hook 'cider-repl-mode-hook #'company-mode)
