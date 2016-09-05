@@ -65,6 +65,9 @@
 ;; winner mode always
 (winner-mode 1)
 
+;; occur mode
+(global-set-key (kbd "C-c o") 'occur)
+
 ;; cider code completion
 (add-hook 'cider-repl-mode-hook #'company-mode)
 (add-hook 'cider-mode-hook #'company-mode)
