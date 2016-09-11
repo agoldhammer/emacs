@@ -147,12 +147,14 @@
 
 ;; smartparens
 (use-package smartparens
-  :config
-  (defun sp-setup ()
+  :defer 3
+  )
+
+(defun sp-setup ()
     (progn
       (electric-pair-mode 0)
       (smartparens-strict-mode 1)
-      (sp-use-smartparens-bindings))))
+      (sp-use-smartparens-bindings)))
 
 (add-hook 'clojure-mode-hook 'sp-setup)
 (add-hook 'emacs-lisp-mode-hook 'sp-setup)
