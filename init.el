@@ -459,8 +459,10 @@ See also `newline-and-indent'."
 
 ;; hydras
 (use-package hydra :ensure t)
+(define-prefix-command 'f12-map)
+(global-set-key (kbd "<f12>") f12-map)
 
-(defhydra hydra-multiple-cursors ()
+(defhydra hy-multiple-cursors ()
   "
     ^Up^            ^Down^        ^Miscellaneous^
 ----------------------------------------------
@@ -476,10 +478,11 @@ See also `newline-and-indent'."
   ("P" mc/skip-to-previous-like-this)
   ("M-p" mc/unmark-previous-like-this)
   ("q" nil))
-(global-set-key (kbd "H-m") 'hydra-multiple-cursors/body)
+(global-set-key (kbd "H-m") 'hy-multiple-cursors/body)
+(define-key f12-map (kbd "m") 'hy-multiple-cursors/body)
 
 (bind-key "H-s"
-          (defhydra smartparens-hydra ()
+          (defhydra hy-smartparens ()
             "Smartparens"
             ("d" sp-down-sexp "Down")
             ("e" sp-up-sexp "Up")
@@ -490,6 +493,7 @@ See also `newline-and-indent'."
             ("k" sp-kill-sexp "Kill" :color blue)
             ("q" nil "Quit" :color blue))
           smartparens-mode-map)
+(define-key f12-map (kbd "s") 'hy-smartparens/body)
 
 (provide 'init)
 ;;; init.el ends here
