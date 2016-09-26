@@ -152,9 +152,8 @@
 
 (defun sp-setup ()
     (progn
-      (electric-pair-mode 0)
       (smartparens-strict-mode 1)
-      (sp-pair "'" nil :actions :rem)
+      ;; (sp-pair "'" nil :actions :rem)
       (sp-use-smartparens-bindings)))
 
 (add-hook 'clojure-mode-hook 'sp-setup)
@@ -481,18 +480,18 @@ See also `newline-and-indent'."
 (global-set-key (kbd "H-m") 'hy-multiple-cursors/body)
 (define-key f12-map (kbd "m") 'hy-multiple-cursors/body)
 
-(bind-key "H-s"
-          (defhydra hy-smartparens ()
-            "Smartparens"
-            ("d" sp-down-sexp "Down")
-            ("e" sp-up-sexp "Up")
-            ("u" sp-backward-up-sexp "Up")
-            ("a" sp-backward-down-sexp "Down")
-            ("f" sp-forward-sexp "Forward")
-            ("b" sp-backward-sexp "Backward")
-            ("k" sp-kill-sexp "Kill" :color blue)
-            ("q" nil "Quit" :color blue))
-          smartparens-mode-map)
+;; (bind-key "H-s"
+;;           (defhydra hy-smartparens ()
+;;             "Smartparens"
+;;             ("d" sp-down-sexp "Down")
+;;             ("e" sp-up-sexp "Up")
+;;             ("u" sp-backward-up-sexp "Up")
+;;             ("a" sp-backward-down-sexp "Down")
+;;             ("f" sp-forward-sexp "Forward")
+;;             ("b" sp-backward-sexp "Backward")
+;;             ("k" sp-kill-sexp "Kill" :color blue)
+;;             ("q" nil "Quit" :color blue))
+;;           smartparens-mode-map)
 (define-key f12-map (kbd "s") 'hy-smartparens/body)
 
 (provide 'init)
