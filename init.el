@@ -158,6 +158,12 @@
 
 (add-hook 'clojure-mode-hook 'sp-setup)
 (add-hook 'emacs-lisp-mode-hook 'sp-setup)
+
+;; using clojurescript with lein chestnut
+(setq cider-cljs-lein-repl
+      "(do (user/run)
+           (user/browser-repl))")
+
 ;;
 ;; typing replaces selection
 (delete-selection-mode 1)
