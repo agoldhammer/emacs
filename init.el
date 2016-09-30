@@ -221,7 +221,8 @@
 (use-package flycheck
   :defer t
   :config
- (add-hook 'after-init-hook #'global-flycheck-mode))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (global-flycheck-mode -1))
 
 ;;
 (use-package company-jedi
@@ -595,12 +596,6 @@ See also `newline-and-indent'."
 ;; per http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
 ;; use web-mode for .jsx files
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
-
-;; http://www.flycheck.org/manual/latest/index.html
-(require 'flycheck)
-
-;; turn on flychecking globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
