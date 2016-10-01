@@ -160,9 +160,16 @@
 (add-hook 'emacs-lisp-mode-hook 'sp-setup)
 
 ;; using clojurescript with lein chestnut
+;; (setq cider-cljs-lein-repl
+;;       "(do (user/run)
+;;            (user/browser-repl))")
+
+;; figwheel
+;; https://cider.readthedocs.io/en/latest/up_and_running/
+;;  #using-the-figwheel-repl-leiningen-only
 (setq cider-cljs-lein-repl
-      "(do (user/run)
-           (user/browser-repl))")
+      "(do (use 'figwheel-sidecar.repl-api)
+           (start-figwheel!) (cljs-repl))")
 
 ;;
 ;; typing replaces selection
