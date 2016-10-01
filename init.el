@@ -221,7 +221,7 @@
 (use-package flycheck
   :defer t
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   (global-flycheck-mode -1))
 
 ;;
