@@ -219,7 +219,7 @@
 
 ;; flycheck
 (use-package flycheck
-  :defer t
+  :ensure t
   :config
   ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   (global-flycheck-mode -1))
