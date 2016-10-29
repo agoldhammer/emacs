@@ -637,5 +637,8 @@ See also `newline-and-indent'."
       ad-do-it)
     ad-do-it))
 
+;; debugging
+(use-package realgud)
+
 (provide 'init)
 ;;; init.el ends here
