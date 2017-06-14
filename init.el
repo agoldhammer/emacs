@@ -28,6 +28,9 @@
 ;; disable bell
 (setq ring-bell-function 'ignore)
 
+;; whitespace cleanup
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
 ;; elpy
 (use-package elpy
   :init
@@ -38,12 +41,16 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; turn off pyvenv
 (pyvenv-mode -1)
+
+;; quickhelp always on
+(company-quickhelp-mode 1)
+
 ;; (when (require 'elpy nil t)
 ;;   (elpy-enable))
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;;added per http://www.unknownerror.org/opensource/davidhalter/
 ;;jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
-(setq elpy-rpc-backend "jedi")  
+(setq elpy-rpc-backend "jedi")
 ;; (elpy-use-ipython)
 
 ;; resolve company - yasnippet conflicts
@@ -51,19 +58,42 @@
 (defun company-yasnippet-or-completion ()
   "Solve company yasnippet conflicts."
   (interactive)
-  (let ((yas-fallback-behavior
-         (apply 'company-complete-common nil)))
+  (let ((yas-maybe-expand
+	 (apply 'company-complete-common nil)))
     (yas-expand)))
 
 (add-hook 'company-mode-hook
-          (lambda ()
-            (substitute-key-definition
-             'company-complete-common
-             'company-yasnippet-or-completion
-             company-active-map)))
+	  (lambda ()
+	    (substitute-key-definition
+	     'company-complete-common
+	     'company-yasnippet-or-completion
+	     company-active-map)))
 
 ;; prevent autocomplete from starting automatically
 ;; (global-auto-complete-mode 0)
+
+;; treemacs
+;; (use-package treemacs
+;;   :load-path "~/Prog/treemacs"
+;;   :defer t
+;;   :config
+;;   (require 'treemacs-evil)
+;;   (setq treemacs-header-function            #'treemacs--create-header-projectile
+;;	treemacs-follow-after-init          t
+;;	treemacs-width                      35
+;;	treemacs-indentation                2
+;;	treemacs-git-integration            t
+;;	treemacs-change-root-without-asking nil
+;;	treemacs-sorting                    'alphabetic-desc
+;;	treemacs-show-hidden-files          t
+;;	treemacs-never-persist              nil)
+;;   (treemacs-follow-mode t)
+;;   (treemacs-filewatch-mode t)
+;;   :bind
+;;   (:map
+;;    global-map
+;;    ([f8]        . treemacs-toggle)
+;;    ("<C-M-tab>" . treemacs-toggle)))
 
 ;; winner mode always
 (winner-mode 1)
@@ -174,7 +204,7 @@
 ;;  #using-the-figwheel-repl-leiningen-only
 (setq cider-cljs-lein-repl
       "(do (use 'figwheel-sidecar.repl-api)
-           (start-figwheel!) (cljs-repl))")
+	   (start-figwheel!) (cljs-repl))")
 
 ;;
 ;; typing replaces selection
@@ -193,7 +223,7 @@
   ("C-x o" . ido-select-window))
 
 (use-package flx-ido)
-     
+
 ;; code completion
 (add-hook 'after-init-hook 'global-company-mode)
 ;;
@@ -227,7 +257,7 @@
 (use-package projectile
   :defer t
   :config
-  (projectile-global-mode))
+  (projectile-mode))
 
 ;; flycheck
 (use-package flycheck
@@ -242,7 +272,7 @@
   :config
   (add-to-list 'company-backends 'company-jedi))
 
-;; highlight indent 
+;; highlight indent
 (highlight-indentation-mode nil)
 ;; (set-face-background 'highlight-indentation-face "#d3d3d3")
 ;; (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
@@ -276,6 +306,7 @@
      ("js$" . "bak")
      ("org$" . "bak")
      ("py$" . "bak"))))
+ '(company-quickhelp-mode t)
  '(custom-enabled-themes (quote (manoj-dark)))
  '(delete-old-versions t)
  '(desktop-save-mode t)
@@ -289,7 +320,7 @@
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
-    (cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t))
@@ -310,6 +341,7 @@
 ;; (global-set-key (kbd "<f5>") 'cider-eval-last-sexp)
 ;;(global-set-key (kbd "<f7>") 'kill-buffer)
 ;;(global-set-key (kbd "<f8>") 'cider-jack-in)
+(global-set-key (kbd "<f8>") 'neotree)
 (global-set-key (kbd "<f9>") 'completion-at-point)
 (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
@@ -317,6 +349,7 @@
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "C-x 8 d") 'ranger)
 (global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "C-c c") 'quick-copy-line)
 (global-set-key (kbd "C-c x") 'kill-whole-line)
 ;; (global-set-key (kbd "M-g f") 'avy-goto-line)
 ;; (global-set-key (kbd "M-g w") 'avy-goto-word-1)
@@ -335,10 +368,10 @@
     kill-ring."
       (interactive)
       (let ((beg (line-beginning-position 1))
-            (end (line-beginning-position 2)))
-        (if (eq last-command 'quick-copy-line)
-            (kill-append (buffer-substring beg end) (< end beg))
-          (kill-new (buffer-substring beg end))))
+	    (end (line-beginning-position 2)))
+	(if (eq last-command 'quick-copy-line)
+	    (kill-append (buffer-substring beg end) (< end beg))
+	  (kill-new (buffer-substring beg end))))
       (beginning-of-line 2))
 
 ;; Behave like vi's o command
@@ -355,7 +388,7 @@ See also `newline-and-indent'."
 (global-set-key (kbd "C-o") 'open-next-line)
 ;; Behave like vi's O command
 (defun open-previous-line (arg)
-  "Open a new line before the current one (ARG repeats). 
+  "Open a new line before the current one (ARG repeats).
 See also `newline-and-indent'."
   (interactive "p")
   (beginning-of-line)
