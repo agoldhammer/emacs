@@ -15,10 +15,10 @@
 	       '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (package-initialize))
 
+(eval-when-compile (require 'use-package))
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 
-(eval-when-compile (require 'use-package))
 (require 'bind-key)
 ;; (require 'diminish)
 
@@ -43,7 +43,9 @@
 (pyvenv-mode -1)
 
 ;; quickhelp always on
-(company-quickhelp-mode 1)
+(use-package company-quickhelp
+  :config
+  (company-quickhelp-mode 1))
 
 ;; (when (require 'elpy nil t)
 ;;   (elpy-enable))
@@ -68,32 +70,6 @@
 	     'company-complete-common
 	     'company-yasnippet-or-completion
 	     company-active-map)))
-
-;; prevent autocomplete from starting automatically
-;; (global-auto-complete-mode 0)
-
-;; treemacs
-;; (use-package treemacs
-;;   :load-path "~/Prog/treemacs"
-;;   :defer t
-;;   :config
-;;   (require 'treemacs-evil)
-;;   (setq treemacs-header-function            #'treemacs--create-header-projectile
-;;	treemacs-follow-after-init          t
-;;	treemacs-width                      35
-;;	treemacs-indentation                2
-;;	treemacs-git-integration            t
-;;	treemacs-change-root-without-asking nil
-;;	treemacs-sorting                    'alphabetic-desc
-;;	treemacs-show-hidden-files          t
-;;	treemacs-never-persist              nil)
-;;   (treemacs-follow-mode t)
-;;   (treemacs-filewatch-mode t)
-;;   :bind
-;;   (:map
-;;    global-map
-;;    ([f8]        . treemacs-toggle)
-;;    ("<C-M-tab>" . treemacs-toggle)))
 
 ;; winner mode always
 (winner-mode 1)
@@ -366,7 +342,9 @@
 (global-set-key (kbd "<f5>") 'yas-expand)
 
 ;; which-key--current-key-list
-(which-key-mode)
+(use-package which-key
+  :config
+  (which-key-mode))
 
 ;; copy line
 (defun quick-copy-line ()
@@ -491,13 +469,15 @@ See also `newline-and-indent'."
 )
 
 ;; keychord
-(use-package key-chord :ensure t)
-(key-chord-mode 1)
-(key-chord-define-global "xf" 'ido-find-file)
-(key-chord-define-global "xs" 'save-buffer)
-(key-chord-define-global "xb" 'ido-switch-buffer)
-(key-chord-define-global "zx" 'repeat)
-(key-chord-define-global "xc" 'quick-copy-line)
+(use-package key-chord
+  :ensure t
+  :config
+  (key-chord-mode 1)
+  (key-chord-define-global "xf" 'ido-find-file)
+  (key-chord-define-global "xs" 'save-buffer)
+  (key-chord-define-global "xb" 'ido-switch-buffer)
+  (key-chord-define-global "zx" 'repeat)
+  (key-chord-define-global "xc" 'quick-copy-line))
 
 ;; for os x specific stuff
 (if (eq system-type 'darwin)
