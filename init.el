@@ -102,6 +102,9 @@
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c s") 'swiper)
 
+;; repeat last command
+(global-set-key (kbd "C-.") 'repeat)
+
 ;; cider code completion
 (add-hook 'cider-repl-mode-hook #'company-mode)
 (add-hook 'cider-mode-hook #'company-mode)
@@ -346,7 +349,9 @@
 (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
 (global-set-key (kbd "C-?") 'avy-goto-char)
+(global-set-key (kbd "C-x t") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "C-x T") 'avy-goto-char-2)
 (global-set-key (kbd "C-x 8 d") 'ranger)
 (global-set-key (kbd "C-c d") 'duplicate-line)
 (global-set-key (kbd "C-c c") 'quick-copy-line)
