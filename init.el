@@ -141,7 +141,7 @@
     ("C-c m d" . mc/mark-all-like-this-in-defun)))
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-(global-set-key (kbd "C-c C-m") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c M-m") 'mc/mark-all-like-this)
 
 ;; smex
 (use-package smex
