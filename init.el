@@ -699,7 +699,8 @@ See also `newline-and-indent'."
     ad-do-it))
 
 ;; debugging
-(use-package realgud)
+(use-package realgud
+  :defer t)
 
 (provide 'init)
 ;;; init.el ends here
