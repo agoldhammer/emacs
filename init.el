@@ -19,8 +19,23 @@
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 
-(require 'bind-key)
+(use-package bind-key)
 ;; (require 'diminish)
+
+;; smex
+(use-package smex
+  :bind
+  ("M-x" . smex) ;; now set in ivy-smex config
+  ("M-X" . smex-major-mode-commands)
+  ("C-c C-c M-x" . execute-extended-command))
+;; smex keys
+;;(global-set-key (kbd "M-x") 'smex)
+;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; counsel
+(use-package counsel)
 
 ;; ivy
 (use-package ivy
@@ -30,11 +45,20 @@
   (ivy-mode 1)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 10))
-
-(use-package ivy-smex
-  :config
-  (global-set-key (kbd "M-x") 'ivy-smex))
+  (setq ivy-height 10)
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  ;; Use C-j for immediate termination with the current value, and RET
+  ;; for continuing completion for that directory. This is the ido
+  ;; behaviour.
+  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done))
 
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
@@ -161,17 +185,7 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 (global-set-key (kbd "C-c M-m") 'mc/mark-all-like-this)
 
-;; smex
-(use-package smex
-  :bind
-  ;; ("M-x" . smex) ;; now set in ivy-smex config
-  ("M-X" . smex-major-mode-commands)
-  ("C-c C-c M-x" . execute-extended-command))
-;; smex keys
-;;(global-set-key (kbd "M-x") 'smex)
-;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
 
 ;; fill-column-indicator
 (use-package fill-column-indicator
@@ -318,10 +332,9 @@
  '(haskell-mode-hook
    (quote
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
- '(ivy-mode t)
  '(package-selected-packages
    (quote
-    (ivy-smex sphinx-doc dot-mode neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (counsel ivy-smex sphinx-doc dot-mode neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t))
