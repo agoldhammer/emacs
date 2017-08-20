@@ -22,6 +22,20 @@
 (require 'bind-key)
 ;; (require 'diminish)
 
+;; ivy
+(use-package ivy
+  :ensure t
+  :diminish (ivy-mode . "")
+  :config
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 10))
+
+(use-package ivy-smex
+  :config
+  (global-set-key (kbd "M-x") 'ivy-smex))
+
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
 
@@ -31,23 +45,27 @@
 ;; whitespace cleanup
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+;; sphinx-doc
+(use-package sphinx-doc)
+
 ;; elpy
 (use-package elpy
   :init
   (elpy-enable)
   :config
   (setq elpy-rpc-backend "jedi") ;; also ?? set in custom variables
-  )
-(add-hook 'python-mode-hook 'jedi:setup)
-;; turn off pyvenv
-(pyvenv-mode -1)
+  (add-hook 'python-mode-hook (lambda ()
+				(sphinx-doc-mode t)
+				(jedi:setup))))
+  ;; turn off pyvenv
+  (pyvenv-mode -1)
 
-;; quickhelp always on
-(use-package company-quickhelp
-  :config
-  (company-quickhelp-mode 1))
+  ;; quickhelp always on
+  (use-package company-quickhelp
+    :config
+    (company-quickhelp-mode 1))
 
-;; (when (require 'elpy nil t)
+  ;; (when (require 'elpy) nil t)
 ;;   (elpy-enable))
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;;added per http://www.unknownerror.org/opensource/davidhalter/
@@ -146,7 +164,7 @@
 ;; smex
 (use-package smex
   :bind
-  ("M-x" . smex)
+  ;; ("M-x" . smex) ;; now set in ivy-smex config
   ("M-X" . smex-major-mode-commands)
   ("C-c C-c M-x" . execute-extended-command))
 ;; smex keys
@@ -193,18 +211,18 @@
 (delete-selection-mode 1)
 ;;
 ;; ido mode
-(use-package ido
-  :config
-  (progn
-    (setq ido-enable-f-matching t)
-    (setq ido-everywhere t)
-    (ido-mode 1)
-    (ido-yes-or-no-mode)
-    (setq ido-use-faces nil))
-  :bind
-  ("C-x o" . ido-select-window))
+;; (use-package ido
+;;   :config
+;;   (progn
+;;     (setq ido-enable-f-matching t)
+;;     (setq ido-everywhere t)
+;;     (ido-mode 1)
+;;     (ido-yes-or-no-mode)
+;;     (setq ido-use-faces nil))
+;;   :bind
+;;   ("C-x o" . ido-select-window))
 
-(use-package flx-ido)
+;; (use-package flx-ido)
 
 ;; code completion
 (add-hook 'after-init-hook 'global-company-mode)
@@ -300,9 +318,10 @@
  '(haskell-mode-hook
    (quote
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
+ '(ivy-mode t)
  '(package-selected-packages
    (quote
-    (dot-mode neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (ivy-smex sphinx-doc dot-mode neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t))
