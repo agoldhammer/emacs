@@ -25,7 +25,7 @@
 ;; smex
 (use-package smex
   :bind
-  ("M-x" . smex) ;; now set in ivy-smex config
+  ;; ("M-x" . smex) ;; see below counsel-M-x
   ("M-X" . smex-major-mode-commands)
   ("C-c C-c M-x" . execute-extended-command))
 ;; smex keys
@@ -54,6 +54,7 @@
   (global-set-key (kbd "<f1> l") 'counsel-find-library)
   (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
   (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c b") 'counsel-bookmark)
   ;; Use C-j for immediate termination with the current value, and RET
   ;; for continuing completion for that directory. This is the ido
   ;; behaviour.
@@ -257,19 +258,19 @@
 (use-package jquery-doc :defer 6)
 (add-hook 'js2-mode-hook 'jquery-doc-setup)
 
-(use-package clojure-snippets)
-;; (yas-load-directory "~/.emacs.d/snippets")
+(use-package clojure-snippets
+  :defer 5)
 
 ;; avy
 (use-package avy
-  :defer t
+  :defer 10
   :config
   (avy-setup-default))
 
 ;; emacs as python IDE video
 
 (use-package projectile
-  :defer t
+  :defer 8
   :config
   (projectile-mode))
 
@@ -419,15 +420,18 @@ See also `newline-and-indent'."
 (defun move-line (n)
   "Move the current line up or down by N lines."
   (interactive "p")
-  (setq col (current-column))
-  (beginning-of-line) (setq start (point))
-  (end-of-line) (forward-char) (setq end (point))
-  (let ((line-text (delete-and-extract-region start end)))
+  (defvar alg-col)
+  (defvar alg-start)
+  (defvar alg-end)
+  (setq alg-col (current-column))
+  (beginning-of-line) (setq alg-start (point))
+  (end-of-line) (forward-char) (setq alg-end (point))
+  (let ((line-text (delete-and-extract-region alg-start alg-end)))
     (forward-line n)
     (insert line-text)
     ;; restore point to original column in moved line
     (forward-line -1)
-    (forward-char col)))
+    (forward-char alg-col)))
 
 (defun move-line-up (n)
   "Move the current line up by N lines."
@@ -447,49 +451,49 @@ See also `newline-and-indent'."
 ;;aliases from ergoemacs
 (defalias 'list-buffers 'ibuffer) ; always use ibuffer
 ;; make frequently used commands short
-(defalias 'qrr 'query-replace-regexp)
-(defalias 'lml 'list-matching-lines)
-(defalias 'dml 'delete-matching-lines)
-(defalias 'dnml 'delete-non-matching-lines)
-(defalias 'dtw 'delete-trailing-whitespace)
-(defalias 'sl 'sort-lines)
-(defalias 'rr 'reverse-region)
-(defalias 'rs 'replace-string)
+;; (defalias 'qrr 'query-replace-regexp)
+;; (defalias 'lml 'list-matching-lines)
+;; (defalias 'dml 'delete-matching-lines)
+;; (defalias 'dnml 'delete-non-matching-lines)
+;; (defalias 'dtw 'delete-trailing-whitespace)
+;; (defalias 'sl 'sort-lines)
+;; (defalias 'rr 'reverse-region)
+;; (defalias 'rs 'replace-string)
 
-(defalias 'g 'grep)
-(defalias 'gf 'grep-find)
-(defalias 'fd 'find-dired)
+;; (defalias 'g 'grep)
+;; (defalias 'gf 'grep-find)
+;; (defalias 'fd 'find-dired)
 
-(defalias 'rb 'revert-buffer)
+;; (defalias 'rb 'revert-buffer)
 
-(defalias 'sh 'shell)
-(defalias 'fb 'flyspell-buffer)
-(defalias 'sbc 'set-background-color)
-(defalias 'rof 'recentf-open-files)
-(defalias 'lcd 'list-colors-display)
-(defalias 'cc 'calc)
+;; (defalias 'sh 'shell)
+;; (defalias 'fb 'flyspell-buffer)
+;; (defalias 'sbc 'set-background-color)
+;; (defalias 'rof 'recentf-open-files)
+;; (defalias 'lcd 'list-colors-display)
+;; (defalias 'cc 'calc)
 
 ; elisp
-(defalias 'eb 'eval-buffer)
-(defalias 'er 'eval-region)
-(defalias 'ed 'eval-defun)
-(defalias 'eis 'elisp-index-search)
-(defalias 'lf 'load-file)
+;; (defalias 'eb 'eval-buffer)
+;; (defalias 'er 'eval-region)
+;; (defalias 'ed 'eval-defun)
+;; (defalias 'eis 'elisp-index-search)
+;; (defalias 'lf 'load-file)
 
 ; major modes
-(defalias 'hm 'html-mode)
-(defalias 'tm 'text-mode)
-(defalias 'elm 'emacs-lisp-mode)
-(defalias 'om 'org-mode)
-(defalias 'ssm 'shell-script-mode)
-(defalias 'clj 'clojure-mode)
+;; (defalias 'hm 'html-mode)
+;; (defalias 'tm 'text-mode)
+;; (defalias 'elm 'emacs-lisp-mode)
+;; (defalias 'om 'org-mode)
+;; (defalias 'ssm 'shell-script-mode)
+;; (defalias 'clj 'clojure-mode)
 
-; minor modes
-(defalias 'wsm 'whitespace-mode)
-(defalias 'gwsm 'global-whitespace-mode)
-(defalias 'vlm 'visual-line-mode)
-(defalias 'glm 'global-linum-mode)
-(defalias 'hsk 'helm-show-kill-ring)
+;; ; minor modes
+;; (defalias 'wsm 'whitespace-mode)
+;; (defalias 'gwsm 'global-whitespace-mode)
+;; (defalias 'vlm 'visual-line-mode)
+;; (defalias 'glm 'global-linum-mode)
+;; (defalias 'hsk 'helm-show-kill-ring)
 
 (defun duplicate-line()
   (interactive)
@@ -502,15 +506,15 @@ See also `newline-and-indent'."
 )
 
 ;; keychord
-(use-package key-chord
-  :ensure t
-  :config
-  (key-chord-mode 1)
-  (key-chord-define-global "xf" 'ido-find-file)
-  (key-chord-define-global "xs" 'save-buffer)
-  (key-chord-define-global "xb" 'ido-switch-buffer)
-  (key-chord-define-global "zx" 'repeat)
-  (key-chord-define-global "xc" 'quick-copy-line))
+;; (use-package key-chord
+;;   :ensure t
+;;   :config
+;;   (key-chord-mode 1)
+;;   (key-chord-define-global "xf" 'ido-find-file)
+;;   (key-chord-define-global "xs" 'save-buffer)
+;;   (key-chord-define-global "xb" 'ido-switch-buffer)
+;;   (key-chord-define-global "zx" 'repeat)
+;;   (key-chord-define-global "xc" 'quick-copy-line))
 
 ;; for os x specific stuff
 (if (eq system-type 'darwin)
@@ -532,7 +536,7 @@ See also `newline-and-indent'."
 (global-set-key (kbd "C-x C-`") 'kibit-accept-proposed-change)
 
 ;; hydras
-(use-package hydra :ensure t)
+(use-package hydra :defer t)
 (define-prefix-command 'f12-map)
 (global-set-key (kbd "<f12>") f12-map)
 
