@@ -662,7 +662,7 @@ See also `newline-and-indent'."
 	    ("_" sp-join-sexp ) ;;Good
 	    ("|" sp-split-sexp )))
 
-(define-key f12-map (kbd "s") 'hy-smartparens/body)
+;; (define-key f12-map (kbd "s") 'hy-smartparens/body)
 
 ;; customize for React
 ;; per http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
