@@ -15,4 +15,7 @@ bookmarks
 .emacs.de*
 *.old
 *~
-
+tramp
+.DS_Store
+eshell/*
+recentf
