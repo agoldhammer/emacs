@@ -535,29 +535,29 @@ See also `newline-and-indent'."
 ;; kibit -- linter for clojure
 (global-set-key (kbd "C-x C-`") 'kibit-accept-proposed-change)
 
-;; hydras
-(use-package hydra :defer t)
-(define-prefix-command 'f12-map)
-(global-set-key (kbd "<f12>") f12-map)
+;; ;; hydras
+;; (use-package hydra :defer t)
+;; (define-prefix-command 'f12-map)
+;; (global-set-key (kbd "<f12>") f12-map)
 
-(defhydra hy-multiple-cursors ()
-  "
-    ^Up^            ^Down^        ^Miscellaneous^
-----------------------------------------------
-[_p_]  Next    [_n_]  Next    [_l_] Edit lines
-[_P_]  Skip    [_N_]  Skip    [_a_] Mark all
-[_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("q" nil))
-(global-set-key (kbd "H-m") 'hy-multiple-cursors/body)
-(define-key f12-map (kbd "m") 'hy-multiple-cursors/body)
+;; (defhydra hy-multiple-cursors ()
+;;   "
+;;     ^Up^            ^Down^        ^Miscellaneous^
+;; ----------------------------------------------
+;; [_p_]  Next    [_n_]  Next    [_l_] Edit lines
+;; [_P_]  Skip    [_N_]  Skip    [_a_] Mark all
+;; [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+;;   ("l" mc/edit-lines :exit t)
+;;   ("a" mc/mark-all-like-this :exit t)
+;;   ("n" mc/mark-next-like-this)
+;;   ("N" mc/skip-to-next-like-this)
+;;   ("M-n" mc/unmark-next-like-this)
+;;   ("p" mc/mark-previous-like-this)
+;;   ("P" mc/skip-to-previous-like-this)
+;;   ("M-p" mc/unmark-previous-like-this)
+;;   ("q" nil))
+;; (global-set-key (kbd "H-m") 'hy-multiple-cursors/body)
+;; (define-key f12-map (kbd "m") 'hy-multiple-cursors/body)
 
 ;; (bind-key "H-s"
 ;;           (defhydra hy-smartparens ()
