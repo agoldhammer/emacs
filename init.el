@@ -11,8 +11,8 @@
    'package-archives
    '("melpa" . "http://melpa.org/packages/")
    t)
-  (add-to-list 'package-archives
-	       '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  ;; (add-to-list 'package-archives
+  ;;	       '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (package-initialize))
 
 (eval-when-compile (require 'use-package))
@@ -335,7 +335,7 @@
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
-    (counsel ivy-smex sphinx-doc dot-mode neotree treemacs company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package unbound swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit key-chord js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t))
@@ -349,14 +349,14 @@
 ;;
 ;; (eyebrowse-mode t)
 ;;
-
+;; neotree
+(use-package neotree
+  :defer 8
+  :bind
+  (("<f8>" . neotree-toggle)))
 ;;
 ;; key mappings
 (global-set-key (kbd "C-c n") 'linum-mode)
-;; (global-set-key (kbd "<f5>") 'cider-eval-last-sexp)
-;;(global-set-key (kbd "<f7>") 'kill-buffer)
-;;(global-set-key (kbd "<f8>") 'cider-jack-in)
-(global-set-key (kbd "<f8>") 'neotree)
 (global-set-key (kbd "<f9>") 'completion-at-point)
 (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
@@ -368,8 +368,6 @@
 (global-set-key (kbd "C-c d") 'duplicate-line)
 (global-set-key (kbd "C-c c") 'quick-copy-line)
 (global-set-key (kbd "C-c x") 'kill-whole-line)
-;; (global-set-key (kbd "M-g f") 'avy-goto-line)
-;; (global-set-key (kbd "M-g w") 'avy-goto-word-1)
 (global-set-key (kbd "M-g") 'goto-line)
 
 ;; yas-expand alternative for modes where something else bound to tab
