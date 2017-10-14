@@ -5,6 +5,59 @@
 
 ;;; Code:
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; customizations
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
+ '(backup-by-copying t)
+ '(backup-directory-alist
+   (quote
+    (("html$" . "bak")
+     ("clj$" . "bak")
+     ("js$" . "bak")
+     ("org$" . "bak")
+     ("py$" . "bak"))))
+ '(company-quickhelp-mode t)
+ '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-safe-themes
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(delete-old-versions t)
+ '(desktop-save-mode t)
+ '(electric-pair-mode t)
+ '(elpy-rpc-backend "jedi")
+ '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
+ '(flymake-log-level 2)
+ '(flymake-start-syntax-check-on-find-file nil)
+ '(haskell-mode-hook
+   (quote
+    (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
+ '(package-selected-packages
+   (quote
+    (smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+ '(save-place-mode t nil (saveplace))
+ '(show-paren-mode t)
+ '(winner-mode t)
+ '(xterm-mouse-mode t))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (when (>= emacs-major-version 24)
   (require 'package)
   (add-to-list
@@ -23,7 +76,9 @@
 (setq use-package-always-ensure t)
 
 (use-package bind-key)
-;; (require 'diminish)
+(use-package smart-mode-line
+  :config
+  (smart-mode-line-enable))
 
 ;; smex
 (use-package smex
@@ -49,6 +104,9 @@
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   (setq ivy-height 10)
+  (setq ivy-re-builders-alist
+      '((ivy-switch-buffer . ivy--regex-plus)
+	(t . ivy--regex-fuzzy)))
   (global-set-key "\C-s" 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -130,6 +188,7 @@
 
 ;; dot-mode for vim-like repeat
 (use-package dot-mode
+  :diminish dot-mode
   :config
   (global-dot-mode t))
 
@@ -274,6 +333,7 @@
 
 (use-package projectile
   :defer 8
+  :diminish projectile-mode
   :config
   (projectile-mode))
 
@@ -298,6 +358,7 @@
 ;; git-gutter
 (use-package git-gutter
   :defer t
+  :diminish git-gutter-mode
   :config
   (global-git-gutter-mode t))
 ;; (git-gutter:linum-setup)
@@ -307,49 +368,6 @@
 ;; warn long lines
 (add-hook 'prog-mode-hook 'column-enforce-mode)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
- '(backup-by-copying t)
- '(backup-directory-alist
-   (quote
-    (("html$" . "bak")
-     ("clj$" . "bak")
-     ("js$" . "bak")
-     ("org$" . "bak")
-     ("py$" . "bak"))))
- '(company-quickhelp-mode t)
- '(custom-enabled-themes (quote (manoj-dark)))
- '(delete-old-versions t)
- '(desktop-save-mode t)
- '(electric-pair-mode t)
- '(elpy-rpc-backend "jedi")
- '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
- '(flymake-log-level 2)
- '(flymake-start-syntax-check-on-find-file nil)
- '(haskell-mode-hook
-   (quote
-    (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
- '(package-selected-packages
-   (quote
-    (counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
- '(save-place-mode t nil (saveplace))
- '(show-paren-mode t)
- '(winner-mode t)
- '(xterm-mouse-mode t))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 ;;
 ;; (eyebrowse-mode t)
 ;;
@@ -379,6 +397,7 @@
 
 ;; which-key--current-key-list
 (use-package which-key
+  :diminish which-key-mode
   :config
   (which-key-mode))
 
@@ -707,6 +726,14 @@ See also `newline-and-indent'."
 ;; debugging
 (use-package realgud
   :defer t)
+
+;; diminish
+(use-package diminish)
+(diminish 'column-enforce-mode)
+(diminish 'highlight-indentation-mode)
+(diminish 'auto-revert-mode)
+(diminish 'elpy-mode)
+(diminish 'sphinx-doc-mode)
 
 (provide 'init)
 ;;; init.el ends here
