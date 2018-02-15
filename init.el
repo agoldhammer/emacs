@@ -38,12 +38,13 @@
  '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(flymake-log-level 2)
  '(flymake-start-syntax-check-on-find-file nil)
+ '(git-gutter:update-interval 3)
  '(haskell-mode-hook
    (quote
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
-    (smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (markdown-mode markdown-preview-eww evil dired+ conda smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t)
@@ -71,6 +72,12 @@
 ;; needed for gterm over ssh
 (xterm-mouse-mode t)
 
+;; mouse-2 option-click mouse-3 cmd-click mac
+;;
+;; (setq mac-emulate-three-button-mouse t)
+(define-key key-translation-map (kbd "<s-mouse-1>") (kbd "<mouse-3>"))
+(define-key key-translation-map (kbd "<M-mouse-1>") (kbd "<mouse-2>"))
+
 (eval-when-compile (require 'use-package))
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
@@ -79,6 +86,9 @@
 (use-package smart-mode-line
   :config
   (smart-mode-line-enable))
+
+;; dired+
+;; (use-package dired+)
 
 ;; smex
 (use-package smex
@@ -116,6 +126,7 @@
   (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
   (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
   (global-set-key (kbd "C-c b") 'counsel-bookmark)
+
   ;; Use C-j for immediate termination with the current value, and RET
   ;; for continuing completion for that directory. This is the ido
   ;; behaviour.
@@ -158,6 +169,18 @@
 ;;jedi/q/stackoverflow/29809061/how-to-properly-setup-jedi-with-elpy-in-emacs
 (setq elpy-rpc-backend "jedi")
 ;; (elpy-use-ipython)
+
+;; ;; conda mode
+;; (use-package conda)
+;; ;; if you want interactive shell support, include:
+;; (conda-env-initialize-interactive-shells)
+;; ;; if you want eshell support, include:
+;; (conda-env-initialize-eshell)
+;; ;; if you want auto-activation (see below for details), include:
+;; (conda-env-autoactivate-mode t)
+;; ;; set to anaconda installation dir
+;; (custom-set-variables
+;;  '(conda-anaconda-home "~/anaconda"))
 
 ;; resolve company - yasnippet conflicts
 ;; https://github.com/jorgenschaefer/elpy/wiki/FAQ
@@ -734,6 +757,31 @@ See also `newline-and-indent'."
 (diminish 'auto-revert-mode)
 (diminish 'elpy-mode)
 (diminish 'sphinx-doc-mode)
+
+;; evil-mode
+(use-package evil
+  :init
+  (evil-mode 1)
+  )
+
+(dolist (mode '(ag-mode
+		  flycheck-error-list-mode
+		  git-rebase-mode
+		  REPL))
+  (add-to-list 'evil-emacs-state-modes mode))
+
+;; change mode-line color by evil state
+(lexical-let ((default-color (cons (face-background 'mode-line)
+				    (face-foreground 'mode-line))))
+    (add-hook 'post-command-hook
+    (lambda ()
+	(let ((color (cond ((minibufferp) default-color)
+			((evil-insert-state-p) '("#e80000" . "#ffffff"))
+			((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+			((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+			(t default-color))))
+	(set-face-background 'mode-line (car color))
+	(set-face-foreground 'mode-line (cdr color))))))
 
 (provide 'init)
 ;;; init.el ends here
