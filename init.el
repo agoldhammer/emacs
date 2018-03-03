@@ -44,7 +44,7 @@
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
-    (markdown-mode markdown-preview-eww evil dired+ conda smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (lorem-ipsum markdown-mode markdown-preview-eww evil dired+ conda smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t)
@@ -575,6 +575,8 @@ See also `newline-and-indent'."
 (load-file "~/.emacs.d/utility.el")
 (global-set-key (kbd "s-r") 'rotate-windows)
 (global-set-key (kbd "s-c") 'cleanup-buffer)
+(global-set-key (kbd "s-b") 'switch-to-buffer)
+(global-set-key (kbd "s-f") 'counsel-find-file)
 
 ;; kibit -- linter for clojure
 (global-set-key (kbd "C-x C-`") 'kibit-accept-proposed-change)
@@ -769,6 +771,21 @@ See also `newline-and-indent'."
 		  git-rebase-mode
 		  REPL))
   (add-to-list 'evil-emacs-state-modes mode))
+
+
+;; emmet mode
+(use-package emmet-mode
+  :defer 10)
+
+(use-package rainbow-mode
+  :defer 10)
+
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+(add-hook 'web-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
 
 ;; change mode-line color by evil state
 ;; (lexical-let ((default-color (cons (face-background 'mode-line)
