@@ -34,7 +34,7 @@
  '(delete-old-versions t)
  '(desktop-save-mode t)
  '(electric-pair-mode t)
- '(elpy-rpc-backend "jedi")
+ '(elpy-rpc-backend "jedi" t)
  '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(flymake-log-level 2)
  '(flymake-start-syntax-check-on-find-file nil)
@@ -579,7 +579,18 @@ See also `newline-and-indent'."
 (global-set-key (kbd "s-f") 'counsel-find-file)
 
 ;; kibit -- linter for clojure
-(global-set-key (kbd "C-x C-`") 'kibit-accept-proposed-change)
+;; (global-set-key (kbd "C-x C-`") 'kibit-accept-proposed-change)
+;; (use-package seq-25)
+;; (use-package clj-refactor
+;;   :defer 5)
+
+;; (defun ag-clojure-mode-hook ()
+;;     (clj-refactor-mode 1)
+;;     (yas-minor-mode 1) ; for adding require/use/import statements
+;;     ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+;;     (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+;; (add-hook 'clojure-mode-hook #'ag-clojure-mode-hook)
 
 ;; ;; hydras
 ;; (use-package hydra :defer t)
