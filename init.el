@@ -37,6 +37,7 @@
  '(elpy-rpc-backend "jedi" t)
  '(erc-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(flymake-log-level 2)
+ '(flymake-start-on-flymake-mode nil)
  '(flymake-start-syntax-check-on-find-file nil)
  '(git-gutter:update-interval 3)
  '(haskell-mode-hook
@@ -44,7 +45,7 @@
     (turn-on-haskell-indent turn-on-font-lock turn-on-eldoc-mode turn-on-haskell-doc-mode turn-on-haskell-unicode-input-method)))
  '(package-selected-packages
    (quote
-    (elm-mode evil-surround lorem-ipsum markdown-mode markdown-preview-eww evil dired+ conda smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
+    (ivy diminish elm-mode evil-surround lorem-ipsum markdown-mode markdown-preview-eww evil dired+ conda smart-mode-line counsel ivy-smex sphinx-doc dot-mode neotree company-quickhelp cycle-resize kibit-helper realgud hydra ag jquery-doc flymake-jslint web-mode ace-window smartparens-config zencoding zencoding-mode which-key use-package swiper smex smartparens ranger rainbow-mode rainbow-delimiters projectile org multiple-cursors magit js2-mode idomenu ido-yes-or-no ido-vertical-mode ido-select-window ido-grid-mode ido-exit-target ido-describe-bindings git-gutter flycheck flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell emmet-mode elpy cycbuf company-jedi column-enforce-mode clojure-snippets cider avy-zap anaconda-mode)))
  '(save-place-mode t nil (saveplace))
  '(show-paren-mode t)
  '(winner-mode t)
